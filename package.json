@@ -1,0 +1,13 @@
+{
+  "name": "Backend",
+  "version": "1.0.0",
+  "description": "2024 Seoul public data contest",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.8",
+    "express": "^4.19.2",
+    "typescript": "^5.4.5"
+  }
+}
