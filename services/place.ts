@@ -1,8 +1,9 @@
 import { Inject, Service } from "typedi";
+import { Logger } from "winston";
 
 @Service()
 export default class PlaceService {
-  constructor() {}
+  constructor(@Inject("logger") private logger: Logger) {}
 
   /***
    * 자정이 지나면 다시 위치를 선택
