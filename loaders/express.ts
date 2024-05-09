@@ -2,6 +2,7 @@ import cors from "cors";
 import experss, { NextFunction, Request, Response, json } from "express";
 import config from "../config";
 import routes from "../api";
+import { CustomError } from "../error";
 
 export default ({ app }: { app: experss.Application }) => {
   app.get("/status", (req: Request, res: Response) => {

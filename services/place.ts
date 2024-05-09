@@ -16,6 +16,11 @@ export default class PlaceService {
   public async CreatePlacePuzzle() {}
 
   /***
+   * 생성된 2 x 2 퍼즐 가져오기
+   */
+  public async GetPlacePuzzle() {}
+
+  /***
    * 현재 공개되지 않은 퍼즐 조각 중 하나를 리턴
    */
   public async GetRandomPuzzlePiece() {}
