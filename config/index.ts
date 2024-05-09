@@ -8,7 +8,7 @@ if (envFound.error) {
 }
 
 export default {
-  port: parseInt(process.env.PORT!, 3001),
+  port: parseInt(process.env.PORT!) || 3001,
   api: {
     prefix: "/api/v1",
   },
