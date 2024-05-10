@@ -9,6 +9,23 @@ export default (app: Router) => {
   app.use("/user", route);
 
   route.post(
+    "/login",
+    async (req: Request, res: Response, next: NextFunction) => {
+      const logger: Logger = Container.get("logger");
+
+      try {
+        const userServiceInstance = Container.get(UserService);
+        const result = await userServiceInstance.Login(req.body);
+
+        return res.status(200).json({ msg: "OK", data: { ...result } });
+      } catch (e) {
+        logger.error("⚠️ error : %o", e);
+        return next(e);
+      }
+    }
+  );
+
+  route.post(
     "/join",
     async (req: Request, res: Response, next: NextFunction) => {
       const logger: Logger = Container.get("logger");
