@@ -1,22 +1,23 @@
-import { Joi, celebrate } from "celebrate";
-import { NextFunction, Router, Request, Response } from "express";
+import { NextFunction, Request, Response, Router } from "express";
+import UserService from "../../services/user";
 import Container from "typedi";
 import { Logger } from "winston";
 
 const route = Router();
 
 export default (app: Router) => {
-  app.use("/post", route);
+  app.use("/user", route);
 
-  /***
-   * 리스트 형식으로 모든 게시글을 받아옴
-   */
-  route.get(
-    "/list",
+  route.patch(
+    "/edit",
     async (req: Request, res: Response, next: NextFunction) => {
       const logger: Logger = Container.get("logger");
+
       try {
-	//	const PostServiceInstance = Container.get(Post
+        const userServiceInstance = Container.get(UserService);
+        const result = await userServiceInstance.Edit(req.body);
+
+        return res.status(200).json({ msg: "OK" });
       } catch (e) {
         logger.error("⚠️ error : %o", e);
         return next(e);
@@ -24,29 +25,16 @@ export default (app: Router) => {
     }
   );
 
-  /***
-   * 해당 게시글의 상세 데이터를 가져옴
-   */
-  route.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
-    const logger: Logger = Container.get("logger");
-    try {
-    } catch (e) {
-      logger.error("⚠️ error : %o", e);
-      return next(e);
-    }
-  });
-
-  /***
-   * 게시글 작성
-   */
   route.post(
-    "/add",
-    celebrate({
-      body: Joi.object({ description: Joi.string().required() }),
-    }),
+    "/login",
     async (req: Request, res: Response, next: NextFunction) => {
       const logger: Logger = Container.get("logger");
+
       try {
+        const userServiceInstance = Container.get(UserService);
+        const result = await userServiceInstance.Login(req.body);
+
+        return res.status(200).json({ msg: "OK", data: { ...result } });
       } catch (e) {
         logger.error("⚠️ error : %o", e);
         return next(e);
@@ -54,15 +42,16 @@ export default (app: Router) => {
     }
   );
 
-  /***
-   * 게시글 삭제
-   */
-  route.delete(
-    "/:id",
+  route.post(
+    "/join",
     async (req: Request, res: Response, next: NextFunction) => {
       const logger: Logger = Container.get("logger");
 
       try {
+        const userServiceInstance = Container.get(UserService);
+        await userServiceInstance.Join(req.body);
+
+        return res.status(201).json({ msg: "Done" });
       } catch (e) {
         logger.error("⚠️ error : %o", e);
         return next(e);
