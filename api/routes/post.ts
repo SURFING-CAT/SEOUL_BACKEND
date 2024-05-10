@@ -16,6 +16,7 @@ export default (app: Router) => {
     async (req: Request, res: Response, next: NextFunction) => {
       const logger: Logger = Container.get("logger");
       try {
+	//	const PostServiceInstance = Container.get(Post
       } catch (e) {
         logger.error("⚠️ error : %o", e);
         return next(e);

@@ -14,7 +14,7 @@ export default async ({ expressApp }: { expressApp: Application }) => {
   };
 
   await dependencyInjector({
-    firebaseConnection,
+    ...firebaseConnection,
     models: [placeModel],
   });
   Logger.info("📣 Dependency Injector loaded! ");

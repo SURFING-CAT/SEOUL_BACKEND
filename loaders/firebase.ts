@@ -1,8 +1,10 @@
-import firebase from "firebase-admin";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import config from "../config";
 
-export default (): firebase.app.App => {
-  const connection = firebase.initializeApp(config.firebase);
+export default () => {
+  const connection = initializeApp(config.firebase);
+  const auth = getAuth();
 
-  return connection;
+  return { connection, auth };
 };

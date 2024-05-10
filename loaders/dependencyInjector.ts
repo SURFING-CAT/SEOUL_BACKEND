@@ -1,12 +1,16 @@
 import Container from "typedi";
 import LoggerInstance from "./logger";
 import firebase from "firebase-admin";
+import { Auth } from "firebase/auth";
+import { FirebaseApp } from "firebase/app";
 
 export default ({
-  firebaseConnection,
+  connection,
+  auth,
   models,
 }: {
-  firebaseConnection: firebase.app.App;
+  connection: FirebaseApp;
+  auth: Auth;
   models: {
     name: string;
     model: any;
@@ -15,7 +19,8 @@ export default ({
   try {
     models.forEach((model) => Container.set(model.name, model.model));
 
-    Container.set("firebase", firebaseConnection);
+    Container.set("firebase", connection);
+    Container.set("fireauth", auth);
     Container.set("logger", LoggerInstance);
   } catch (e) {
     LoggerInstance.error("⚠️ Error on dependency injector loader : %o", e);
