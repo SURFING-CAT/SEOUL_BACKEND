@@ -8,3 +8,7 @@ export interface IUserJoinDTO {
   password: string;
   name: string;
 }
+
+export interface IUserEditDTO {
+  email: string;
+}

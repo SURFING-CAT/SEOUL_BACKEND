@@ -8,6 +8,23 @@ const route = Router();
 export default (app: Router) => {
   app.use("/user", route);
 
+  route.patch(
+    "/edit",
+    async (req: Request, res: Response, next: NextFunction) => {
+      const logger: Logger = Container.get("logger");
+
+      try {
+        const userServiceInstance = Container.get(UserService);
+        const result = await userServiceInstance.Edit(req.body);
+
+        return res.status(200).json({ msg: "OK" });
+      } catch (e) {
+        logger.error("⚠️ error : %o", e);
+        return next(e);
+      }
+    }
+  );
+
   route.post(
     "/login",
     async (req: Request, res: Response, next: NextFunction) => {
